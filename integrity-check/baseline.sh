@@ -46,11 +46,10 @@ for key in "$SSH_DIR"/*; do
         fi
     fi
 done
-# Aussi chercher dans les sous-dossiers
-for key in "$SSH_DIR"/**/*; do
-    if [ -f "$key" ] && [ "${key##*.}" != "pub" ]; then
+# Aussi chercher dans les sous-dossiers (find au lieu de ** qui necessite globstar)
+while IFS= read -r key; do
+    if [ "${key##*.}" != "pub" ]; then
         if head -1 "$key" 2>/dev/null | grep -q "BEGIN"; then
-            # Eviter les doublons
             grep -q "$key" "$SHA_FILE" 2>/dev/null || {
                 sha256sum "$key" >> "$SHA_FILE"
                 ok "$(basename "$key")"
@@ -58,7 +57,7 @@ for key in "$SSH_DIR"/**/*; do
             }
         fi
     fi
-done
+done < <(find "$SSH_DIR" -mindepth 2 -type f 2>/dev/null)
 
 chmod 600 "$SHA_FILE"
 info "$KEY_COUNT cles privees referenceees → $SHA_FILE"

@@ -45,17 +45,18 @@ decrypt_archive() {
     fi
 
     echo -e "  ${BLUE}Restauration ${label}...${NC}"
+    local tmp_file="/dev/shm/_restore_$$.tar.gz"
     echo "$PASS" | sudo openssl enc -d -aes-256-cbc -pbkdf2 -pass stdin \
-        -in "$enc_file" -out /tmp/_restore.tar.gz 2>/dev/null
+        -in "$enc_file" -out "$tmp_file" 2>/dev/null
 
     if [ $? -ne 0 ]; then
         echo -e "  ${RED}✗ Echec dechiffrement ${label}${NC}"
-        sudo rm -f /tmp/_restore.tar.gz
+        sudo rm -f "$tmp_file"
         return 1
     fi
 
-    sudo tar xzf /tmp/_restore.tar.gz -C /
-    sudo rm -f /tmp/_restore.tar.gz
+    sudo tar xzf "$tmp_file" -C /
+    sudo rm -f "$tmp_file"
 
     if [ -n "$restore_perms" ] && [ -d "$restore_perms" ]; then
         chmod 700 "$restore_perms"
@@ -79,12 +80,20 @@ encrypt_directory() {
 
     # Calculer le chemin relatif depuis /
     local rel_path="${dir#/}"
-    tar czf /tmp/_backup.tar.gz -C / "$rel_path" 2>/dev/null
+    local tmp_file="/dev/shm/_backup_$$.tar.gz"
+    tar czf "$tmp_file" -C / "$rel_path" 2>/dev/null
     echo "$PASS" | sudo openssl enc -aes-256-cbc -pbkdf2 -pass stdin \
-        -in /tmp/_backup.tar.gz -out "$enc_file"
-    rm -f /tmp/_backup.tar.gz
+        -in "$tmp_file" -out "$enc_file"
+    local rc=$?
+    rm -f "$tmp_file"
+
+    if [ $rc -ne 0 ] || [ ! -f "$enc_file" ]; then
+        echo -e "  ${RED}✗ ECHEC chiffrement ${label} — fichiers en clair CONSERVES${NC}"
+        return 1
+    fi
 
     echo -e "  ${GREEN}✓ ${label} chiffre${NC}"
+    return 0
 }
 
 # ─── MAIN ───────────────────────────────────────────────────────────
@@ -114,21 +123,22 @@ if [ "$STATE" = "CHIFFRE" ]; then
     echo ""
 
     # Verifier le mot de passe sur ssh.enc
+    local tmp_verify="/dev/shm/_verify_$$.tar.gz"
     echo "$PASS" | sudo openssl enc -d -aes-256-cbc -pbkdf2 -pass stdin \
-        -in "$SSH_ENC" -out /tmp/_verify.tar.gz 2>/dev/null
+        -in "$SSH_ENC" -out "$tmp_verify" 2>/dev/null
     if [ $? -ne 0 ]; then
         echo -e "\n  ${RED}✗ Mot de passe incorrect${NC}"
-        sudo rm -f /tmp/_verify.tar.gz
+        sudo rm -f "$tmp_verify"
         read -p "  Appuyez sur Entree pour fermer..." dummy
         exit 1
     fi
     # Le fichier de verification est aussi le fichier SSH — on le restaure
-    sudo tar xzf /tmp/_verify.tar.gz -C /
+    sudo tar xzf "$tmp_verify" -C /
     chmod 700 "$SSH_DIR"
     [ -d "$SSH_KEYS_SUBDIR" ] && chmod 700 "$SSH_KEYS_SUBDIR"
     find "$SSH_KEYS_SUBDIR" -type f -name "*_key" -exec chmod 600 {} \; 2>/dev/null
     find "$SSH_KEYS_SUBDIR" -type f -name "*.pub" -exec chmod 644 {} \; 2>/dev/null
-    sudo rm -f /tmp/_verify.tar.gz
+    sudo rm -f "$tmp_verify"
     echo -e "  ${GREEN}✓ SSH restaure${NC}"
 
     # WireGuard
@@ -178,13 +188,18 @@ else
     encrypt_directory "$GNUPG_DIR"  "$GNUPG_ENC"  "GnuPG"
     encrypt_directory "$RCLONE_DIR" "$RCLONE_ENC" "rclone"
 
-    # Supprimer cles en clair
-    rm -rf "$SSH_DIR"
-    sudo rm -rf "$WG_DIR"
-    rm -rf "$GNUPG_DIR"
-    rm -rf "$RCLONE_DIR"
+    # Supprimer cles en clair — UNIQUEMENT si le .enc existe et est non-vide
+    ERRORS=0
+    [ -f "$SSH_ENC" ] && [ -s "$SSH_ENC" ] && rm -rf "$SSH_DIR" || { echo -e "  ${RED}✗ ssh.enc absent/vide — SSH conserve${NC}"; ERRORS=1; }
+    [ -f "$WG_ENC" ] && [ -s "$WG_ENC" ] && sudo rm -rf "$WG_DIR" || { [ -d "$WG_DIR" ] && echo -e "  ${RED}✗ wireguard.enc absent/vide — WireGuard conserve${NC}" && ERRORS=1; }
+    [ -f "$GNUPG_ENC" ] && [ -s "$GNUPG_ENC" ] && rm -rf "$GNUPG_DIR" 2>/dev/null
+    [ -f "$RCLONE_ENC" ] && [ -s "$RCLONE_ENC" ] && rm -rf "$RCLONE_DIR" 2>/dev/null
 
-    echo -e "\n  ${GREEN}✓ Cles chiffrees — acces verrouille${NC}"
+    if [ $ERRORS -gt 0 ]; then
+        echo -e "\n  ${RED}✗ Chiffrement incomplet — certains fichiers en clair conserves${NC}"
+    else
+        echo -e "\n  ${GREEN}✓ Cles chiffrees — acces verrouille${NC}"
+    fi
 
 fi
 

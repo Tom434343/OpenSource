@@ -96,6 +96,8 @@ for i in $(seq 0 $((SERVER_COUNT - 1))); do
             echo "$SCORE" > "$TMP_DIR/${name}.score"
         else
             # Audit DISTANT via SSH
+            # StrictHostKeyChecking=no : acceptable sur reseau interne/VPN de confiance.
+            # Sur un reseau non fiable, remplacer par StrictHostKeyChecking=accept-new
             SSH_OPTS="-o ConnectTimeout=10 -o StrictHostKeyChecking=no -o BatchMode=yes"
             [ -n "$key" ] && SSH_OPTS="-i $key $SSH_OPTS"
 
@@ -245,7 +247,7 @@ for ID in "${!SUGGESTIONS_MAP[@]}"; do
     servers_raw="${SUGGESTIONS_MAP[$ID]}"
     desc="${SUGGESTIONS_DESC[$ID]}"
     count="${COUNT_MAP[$ID]}"
-    desc_escaped=$(echo "$desc" | sed 's/"/\\"/g')
+    desc_escaped=$(echo "$desc" | sed 's/\\/\\\\/g; s/"/\\"/g; s/\t/ /g' | tr -d '\n\r')
     servers_arr=$(echo "$servers_raw" | sed 's/, /","/g')
     [ -n "$SUGGESTIONS_JSON" ] && SUGGESTIONS_JSON="${SUGGESTIONS_JSON},"
     SUGGESTIONS_JSON="${SUGGESTIONS_JSON}{\"id\":\"$ID\",\"description\":\"$desc_escaped\",\"servers\":[\"$servers_arr\"],\"count\":$count}"
@@ -269,4 +271,4 @@ JSONEOF
 echo "  Rapport JSON : $REPORT_FILE"
 echo ""
 
-read -p "Appuyez sur Entree pour fermer..." dummy
+[ -t 0 ] && read -p "Appuyez sur Entree pour fermer..." dummy

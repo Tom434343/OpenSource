@@ -92,3 +92,4 @@ DB1|admin@10.0.0.10|~/.ssh/id_db
 - SSH en mode BatchMode (pas de prompt interactif)
 - Les audits tournent en parallele (background processes)
 - Aucune donnee sensible dans le rapport (juste scores + IDs de suggestions Lynis)
+- `StrictHostKeyChecking=no` par defaut — acceptable sur reseau interne/VPN. Sur un reseau non fiable, editez le script et remplacez par `StrictHostKeyChecking=accept-new`
