@@ -1,0 +1,30 @@
+{
+  "name": "Cybersecurite",
+  "id": "cybersecurite",
+  "enabled": true,
+  "days_back": 1,
+  "sources": [
+    {"name": "Schneier on Security", "url": "https://www.schneier.com/feed/atom/", "lang": "en"},
+    {"name": "Krebs on Security", "url": "https://krebsonsecurity.com/feed/", "lang": "en"},
+    {"name": "The Hacker News", "url": "https://feeds.feedburner.com/TheHackersNews", "lang": "en"},
+    {"name": "CERT-FR", "url": "https://www.cert.ssi.gouv.fr/feed/", "lang": "fr"},
+    {"name": "BleepingComputer", "url": "https://www.bleepingcomputer.com/feed/", "lang": "en"},
+    {"name": "Dark Reading", "url": "https://www.darkreading.com/rss.xml", "lang": "en"}
+  ],
+  "source_colors": {
+    "Schneier on Security": "#7c3aed",
+    "Krebs on Security": "#dc2626",
+    "The Hacker News": "#059669",
+    "CERT-FR": "#1d4ed8",
+    "BleepingComputer": "#d97706",
+    "Dark Reading": "#374151"
+  },
+  "keywords_alert": [
+    "zero-day", "0day", "ransomware", "CVE-2026",
+    "critical vulnerability", "data breach", "supply chain attack",
+    "backdoor", "rce", "remote code execution",
+    "patch tuesday", "exploit", "botnet"
+  ],
+  "analyse_prompt": "Tu es un expert en cybersecurite. Analyse les articles fournis de maniere factuelle et technique. Concentre-toi sur : les vulnerabilites critiques, les campagnes d'attaque en cours, les patches urgents, et les tendances de menaces. Cite les CVE et les acteurs de menace par nom.",
+  "email_subject_prefix": "🛡️ Veille Cyber"
+}

@@ -1,0 +1,8 @@
+# Terminal Capture — Liste des projets
+# Format : NOM=CHEMIN_ABSOLU
+# Un projet par ligne, commentaires avec #
+
+# Exemples :
+MonSite=/home/user/mon-site
+API=/home/user/mon-api
+# Scripts=/home/user/scripts

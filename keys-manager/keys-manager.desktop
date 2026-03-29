@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Keys Manager
+Comment=Dechiffre les cles SSH et WireGuard au demarrage
+Exec=gnome-terminal -- bash /chemin/vers/keys-manager.sh
+Hidden=false
+X-GNOME-Autostart-enabled=true
+Terminal=false

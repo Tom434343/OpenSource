@@ -1,0 +1,7 @@
+config.env
+*.log
+conteneurs/*/seen_articles.json
+conteneurs/*/syntheses/
+publication/
+__pycache__/
+*.pyc

@@ -1,0 +1,14 @@
+# Lynis Fleet — Configuration des serveurs
+# Format : NOM|USER@IP|CLE_SSH
+# Laissez CLE_SSH vide pour la machine locale (audit local sans SSH)
+#
+# Exemples :
+#   LOCAL||                                    → audit local (pas de SSH)
+#   WEB1|deploy@10.0.0.2|~/.ssh/id_deploy     → serveur distant via SSH
+#   WEB2|deploy@10.0.0.3|~/.ssh/id_deploy     → meme cle SSH, autre serveur
+#   DB1|admin@10.0.0.10|~/.ssh/id_db          → cle differente
+
+LOCAL||
+# WEB1|deploy@10.0.0.2|~/.ssh/id_deploy
+# WEB2|deploy@10.0.0.3|~/.ssh/id_deploy
+# DB1|admin@10.0.0.10|~/.ssh/id_db
