@@ -123,7 +123,7 @@ if [ "$STATE" = "CHIFFRE" ]; then
     echo ""
 
     # Verifier le mot de passe sur ssh.enc
-    local tmp_verify="/dev/shm/_verify_$$.tar.gz"
+    tmp_verify="/dev/shm/_verify_$$.tar.gz"
     echo "$PASS" | sudo openssl enc -d -aes-256-cbc -pbkdf2 -pass stdin \
         -in "$SSH_ENC" -out "$tmp_verify" 2>/dev/null
     if [ $? -ne 0 ]; then
