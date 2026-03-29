@@ -127,4 +127,4 @@ Le module `publisher.py` convertit les syntheses JSON en Markdown et les push su
 
 ## Cout
 
-Le modele utilise est `claude-haiku-4-5` (~0.001$/article). Une veille de 4 conteneurs x 30 articles/jour coute environ **0.50$/mois**.
+Le modele utilise est `claude-haiku-4-5` (~0.001$/article). Consultez les [tarifs Anthropic](https://www.anthropic.com/pricing) pour estimer votre usage.

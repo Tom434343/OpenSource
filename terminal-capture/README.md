@@ -2,7 +2,7 @@
 
 Gestionnaire de sessions Claude Code avec export Markdown et journal de projet automatique.
 
-Selectionnez un projet, Claude Code se lance dedans. A la fin de la session, la conversation est exportee en Markdown et un journal cummulatif est mis a jour avec les corrections, TODOs, decisions techniques et fichiers modifies extraits automatiquement.
+Selectionnez un projet, Claude Code se lance dedans. A la fin, la conversation est exportee en Markdown et un journal cumulatif est pre-rempli automatiquement.
 
 ## Ce que ca fait
 

@@ -1,6 +1,6 @@
 # OpenSource Tools — Digital Consulting & Training
 
-5 outils Linux autonomes, testes en production, prets a deployer avec [Claude Code](https://claude.ai/code).
+5 outils Linux autonomes, prets a deployer avec [Claude Code](https://claude.ai/code).
 
 Chaque outil fonctionne independamment. Choisissez celui qui vous interesse, lisez son README, et lancez Claude Code dedans pour le configurer a votre sauce.
 
@@ -45,4 +45,4 @@ Chaque dossier contient un `CLAUDE.md` que Claude Code lira automatiquement pour
 
 ---
 
-*Outils crees par [Digital Consulting & Training](https://www.digitalct.io) — infrastructure reelle, testes en production sur 4 serveurs.*
+*Outils crees par [Digital Consulting & Training](https://www.digitalct.io)*
