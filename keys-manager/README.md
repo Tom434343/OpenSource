@@ -1,5 +1,7 @@
 # Keys Manager
 
+**Author** : Thomas ROUGER ([Digital Consulting & Training](https://www.digitalct.io))
+
 Chiffrement/dechiffrement de cles sensibles (SSH, WireGuard, GnuPG, rclone) avec OpenSSL AES-256-CBC.
 
 Protection contre le vol physique : quand la machine est eteinte ou verrouillee, les cles sont chiffrees sur le disque. Au demarrage, un mot de passe les dechiffre et demarre WireGuard.

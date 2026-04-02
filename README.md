@@ -39,6 +39,16 @@ Chaque dossier contient un `CLAUDE.md` que Claude Code lira automatiquement pour
 - **OS** : Linux (Debian/Ubuntu recommande)
 - **Windows/Mac** : non supporte (ces outils sont faits pour des serveurs Linux)
 
+## Contributors
+
+| Outil | Auteur |
+|-------|--------|
+| veille-numerique | Thomas ROUGER |
+| keys-manager | Thomas ROUGER |
+| integrity-check | Thomas ROUGER |
+| lynis-fleet | Thomas ROUGER |
+| terminal-capture | Celine PASCAUD |
+
 ## Licence
 
 [MIT](./LICENSE) — Utilisez, modifiez, distribuez librement.

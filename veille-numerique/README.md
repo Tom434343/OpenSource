@@ -1,5 +1,7 @@
 # VeilleNumerique
 
+**Author** : Thomas ROUGER ([Digital Consulting & Training](https://www.digitalct.io))
+
 Veille RSS automatisee avec analyse IA (Claude) et pyramide de syntheses temporelles.
 
 Vous definissez des **conteneurs** (sujets de veille), chacun avec ses sources RSS et mots-cles. Le systeme fetch les articles, les analyse avec Claude, et genere des syntheses a 6 niveaux : jour, semaine, mois, trimestre, annee + memoire cumulative.

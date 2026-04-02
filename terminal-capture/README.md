@@ -1,5 +1,7 @@
 # Terminal Capture
 
+**Author** : Celine PASCAUD ([Digital Consulting & Training](https://www.digitalct.io))
+
 Gestionnaire de sessions Claude Code avec export Markdown et journal de projet automatique.
 
 Selectionnez un projet, Claude Code se lance dedans. A la fin, la conversation est exportee en Markdown et un journal cumulatif est pre-rempli automatiquement.

@@ -1,5 +1,7 @@
 # Lynis Fleet
 
+**Author** : Thomas ROUGER ([Digital Consulting & Training](https://www.digitalct.io))
+
 Audit de securite Lynis centralise sur plusieurs serveurs Linux en parallele via SSH.
 
 Lance [Lynis](https://cisofy.com/lynis/) sur tous vos serveurs simultanement (1 connexion SSH par serveur), consolide les scores et identifie les Quick Wins — les corrections qui ameliorent TOUS les serveurs d'un coup.

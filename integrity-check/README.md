@@ -1,5 +1,7 @@
 # Integrity Check
 
+**Author** : Thomas ROUGER ([Digital Consulting & Training](https://www.digitalct.io))
+
 Verification d'integrite systeme Linux : baseline + 13 controles automatiques.
 
 Cree une empreinte de reference de votre systeme (baseline), puis verifie quotidiennement que rien n'a ete modifie sans autorisation : cles SSH, binaires, comptes utilisateurs, sudoers, crontabs, ports, SUID, rootkits...
