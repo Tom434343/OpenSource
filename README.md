@@ -29,7 +29,7 @@ less README.md
 
 # 4. Lancer votre agent de codage pour configurer
 agentia
-> "Configure-moi cet outil pour mon usage"
+> "Analyse le code de ce dossier dans son ensemble. Explique-moi le rôle de cet outil, ses prérequis et ses dépendances, puis guide-moi étape par étape dans sa configuration pour mon environnement. Pose-moi les questions nécessaires avant toute modification, et ne change rien sans mon accord explicite."
 ```
 
 Chaque dossier contient un `AgentIA.md` que votre agent de codage lira automatiquement pour comprendre l'outil et vous aider à le configurer.
