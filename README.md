@@ -10,7 +10,7 @@ Chaque outil fonctionne indépendamment. Choisissez celui qui vous intéresse, l
 |-------|-------------|--------|
 | [veille-numerique](./veille-numerique/) | Veille RSS automatisée + analyse IA + synthèses pyramidales (jour/semaine/mois/trimestre/année) | Python 3.10+, cron |
 | [keys-manager](./keys-manager/) | Chiffrement/déchiffrement de clés SSH et WireGuard avec OpenSSL AES-256-CBC | OpenSSL, bash |
-| [integrity-check](./integrity-check/) | Vérification d'intégrité système : baseline + 15 contrôles (binaires, ports, SUID, rootkits...) | bash, sha256sum, rkhunter |
+| [integrity-check](./integrity-check/) | Vérification d'intégrité système : baseline + 13 contrôles (binaires, ports, SUID, rootkits...) | bash, sha256sum, rkhunter |
 | [lynis-fleet](./lynis-fleet/) | Audit de sécurité Lynis centralisé sur plusieurs serveurs en parallèle via SSH | Lynis, SSH, bash |
 | [terminal-capture](./terminal-capture/) | Gestionnaire de sessions de votre agent de codage avec export Markdown et journal de projet | Python 3, zenity, votre agent de codage |
 

@@ -57,7 +57,7 @@ ls ~/logs/security/integrity-*.log
 
 Après tout changement volontaire du système :
 - Nouvelle clé SSH
-- Nouveau package installé
+- Nouveau package installé (modération niveau d'alerte si utilisation d'une automatisation de maj de package sur serveurs)
 - Modification sudoers
 - Nouveau service/port
 
