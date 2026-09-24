@@ -36,8 +36,8 @@ Chaque dossier contient un `AgentIA.md` que votre agent de codage lira automatiq
 
 ## Environnement
 
-- **OS** : Linux (Debian/Ubuntu recommandé)
-- **Windows/Mac** : non supporté (ces outils sont faits pour des serveurs Linux)
+- **OS** : Linux
+- **Windows/Mac** : votre agent de codage adaptera les outils à votre système
 
 ## Contributors
 
