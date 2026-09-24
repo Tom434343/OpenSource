@@ -41,7 +41,7 @@ def save_synthese(conteneur_path, couche, dt, analyse, metadata=None):
         conteneur_path: Path vers le conteneur
         couche: "jour", "semaine", "mois", "trimestre", "annee", "cumul"
         dt: datetime de la synthèse
-        analyse: texte de l'analyse Claude
+        analyse: texte de l'analyse IA
         metadata: dict optionnel {articles_count, sources, keywords_found, ...}
 
     Returns:

@@ -2,29 +2,29 @@
 
 **Author** : Thomas ROUGER ([Digital Consulting & Training](https://www.digitalct.io))
 
-Verification d'integrite systeme Linux : baseline + 13 controles automatiques.
+Vérification d'intégrité système Linux : baseline + 13 contrôles automatiques.
 
-Cree une empreinte de reference de votre systeme (baseline), puis verifie quotidiennement que rien n'a ete modifie sans autorisation : cles SSH, binaires, comptes utilisateurs, sudoers, crontabs, ports, SUID, rootkits...
+Crée une empreinte de référence de votre système (baseline), puis vérifie quotidiennement que rien n'a été modifié sans autorisation : clés SSH, binaires, comptes utilisateurs, sudoers, crontabs, ports, SUID, rootkits...
 
-## Les 13 controles
+## Les 13 contrôles
 
-| # | Controle | Methode | Niveau |
+| # | Contrôle | Méthode | Niveau |
 |---|----------|---------|--------|
-| 1 | Cles SSH privees | SHA256 hash + permissions | CRITIQUE si modifie |
-| 2 | Comptes systeme | /etc/passwd diff | CRITIQUE si nouveau compte |
-| 3 | Sudoers | SHA256 hash | CRITIQUE si modifie |
-| 4 | Crontabs | SHA256 hash + diff | WARNING si modifie |
+| 1 | Clés SSH privées | SHA256 hash + permissions | CRITIQUE si modifié |
+| 2 | Comptes système | /etc/passwd diff | CRITIQUE si nouveau compte |
+| 3 | Sudoers | SHA256 hash | CRITIQUE si modifié |
+| 4 | Crontabs | SHA256 hash + diff | WARNING si modifié |
 | 5 | Fichiers SUID/SGID | Liste comparative | CRITIQUE si nouveau |
-| 6 | Binaires systeme | SHA256 de 2000+ binaires | CRITIQUE si modifie |
+| 6 | Binaires système | SHA256 de 2000+ binaires | CRITIQUE si modifié |
 | 7 | Modifications /etc | find -mtime -7 | WARNING si >20 fichiers |
-| 8 | Ports en ecoute | ss -tlnp comparative | WARNING si nouveau port |
+| 8 | Ports en écoute | ss -tlnp comparative | WARNING si nouveau port |
 | 9 | Connexions sortantes | ss -tnp | INFO |
-| 10 | Packages recents | dpkg.log 7 jours | INFO |
-| 11 | Processus suspects | regex mineurs/backdoors | CRITIQUE si detecte |
+| 10 | Packages récents | dpkg.log 7 jours | INFO |
+| 11 | Processus suspects | regex mineurs/backdoors | CRITIQUE si détecté |
 | 12 | Espace disque | df -h | WARNING >80%, CRITIQUE >90% |
-| 13 | Rootkits (rkhunter) | scan complet | CRITIQUE si warning reel |
+| 13 | Rootkits (rkhunter) | scan complet | CRITIQUE si warning réel |
 
-## Prerequis
+## Prérequis
 
 - Linux (Debian/Ubuntu)
 - sudo
@@ -33,7 +33,7 @@ Cree une empreinte de reference de votre systeme (baseline), puis verifie quotid
 ## Installation
 
 ```bash
-# 1. Creer la baseline (machine propre !)
+# 1. Créer la baseline (machine propre !)
 bash baseline.sh
 
 # 2. Lancer un premier check
@@ -55,9 +55,9 @@ ls ~/logs/security/integrity-*.log
 
 ## Quand relancer la baseline ?
 
-Apres tout changement volontaire du systeme :
-- Nouvelle cle SSH
-- Nouveau package installe
+Après tout changement volontaire du système :
+- Nouvelle clé SSH
+- Nouveau package installé
 - Modification sudoers
 - Nouveau service/port
 
@@ -69,10 +69,10 @@ bash baseline.sh
 
 ```
 integrity-check/
-├── baseline.sh           ← Cree la reference (a lancer 1 fois)
-├── integrity-check.sh    ← Verifie l'integrite (quotidien)
+├── baseline.sh           ← Crée la référence (à lancer 1 fois)
+├── integrity-check.sh    ← Vérifie l'intégrité (quotidien)
 ├── install.sh            ← Installe service boot + cron
-├── baseline/             ← Fichiers de reference (generes)
+├── baseline/             ← Fichiers de référence (générés)
 │   ├── ssh-keys.sha256
 │   ├── passwd.baseline
 │   ├── sudoers.sha256
@@ -85,5 +85,5 @@ integrity-check/
 
 ## Personnalisation
 
-- **Reseaux ignores** : editez `IGNORE_NETS` dans integrity-check.sh pour ignorer vos subnets VPN
+- **Réseaux ignorés** : éditez `IGNORE_NETS` dans integrity-check.sh pour ignorer vos subnets VPN
 - **Faux positifs rkhunter** : ajoutez des patterns dans le filtre `grep -v` de la section rkhunter

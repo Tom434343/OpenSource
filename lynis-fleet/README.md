@@ -2,27 +2,27 @@
 
 **Author** : Thomas ROUGER ([Digital Consulting & Training](https://www.digitalct.io))
 
-Audit de securite Lynis centralise sur plusieurs serveurs Linux en parallele via SSH.
+Audit de sécurité Lynis centralisé sur plusieurs serveurs Linux en parallèle via SSH.
 
-Lance [Lynis](https://cisofy.com/lynis/) sur tous vos serveurs simultanement (1 connexion SSH par serveur), consolide les scores et identifie les Quick Wins — les corrections qui ameliorent TOUS les serveurs d'un coup.
+Lance [Lynis](https://cisofy.com/lynis/) sur tous vos serveurs simultanément (1 connexion SSH par serveur), consolide les scores et identifie les Quick Wins — les corrections qui améliorent TOUS les serveurs d'un coup.
 
-## Ce que ca fait
+## Ce que ça fait
 
 ```
 servers.conf        lynis-fleet.sh        Rapport
 ┌──────────┐       ┌──────────────┐       ┌──────────────────┐
 │ LOCAL     │──────→│              │──────→│ Scores /100      │
 │ WEB1     │──SSH──│  Lynis audit │──────→│ Suggestions      │
-│ WEB2     │──SSH──│  en parallele│──────→│ Quick Wins       │
+│ WEB2     │──SSH──│  en parallèle│──────→│ Quick Wins       │
 │ DB1      │──SSH──│              │──────→│ Rapport JSON     │
 └──────────┘       └──────────────┘       └──────────────────┘
                    ~2-3 min total
 ```
 
-## Prerequis
+## Prérequis
 
-- **Lynis** installe sur chaque serveur : `sudo apt install lynis`
-- **SSH** avec cle publique vers chaque serveur distant
+- **Lynis** installé sur chaque serveur : `sudo apt install lynis`
+- **SSH** avec clé publique vers chaque serveur distant
 - **sudo** sans mot de passe pour l'utilisateur deploy (Lynis a besoin de root)
 - bash 4.0+ (pour les tableaux associatifs)
 
@@ -55,7 +55,7 @@ DB1|admin@10.0.0.10|~/.ssh/id_db
 ```
 
 - Laissez `USER@IP` et `CLE_SSH` vides pour un audit local
-- Les commentaires (`#`) sont ignores
+- Les commentaires (`#`) sont ignorés
 
 ## Sortie
 
@@ -71,8 +71,8 @@ DB1|admin@10.0.0.10|~/.ssh/id_db
 
    SUGGESTIONS (Quick Wins en premier)
    [QUICK WIN - 4 serveurs] PKGS-7346
-              Consider purging old/removed packages
-              Sur: LOCAL, WEB1, WEB2, DB1
+               Consider purging old/removed packages
+               Sur: LOCAL, WEB1, WEB2, DB1
    ...
 ```
 
@@ -88,10 +88,10 @@ DB1|admin@10.0.0.10|~/.ssh/id_db
 }
 ```
 
-## Securite
+## Sécurité
 
 - 1 connexion SSH par serveur = pas de risque Fail2Ban
 - SSH en mode BatchMode (pas de prompt interactif)
-- Les audits tournent en parallele (background processes)
-- Aucune donnee sensible dans le rapport (juste scores + IDs de suggestions Lynis)
-- `StrictHostKeyChecking=no` par defaut — acceptable sur reseau interne/VPN. Sur un reseau non fiable, editez le script et remplacez par `StrictHostKeyChecking=accept-new`
+- Les audits tournent en parallèle (background processes)
+- Aucune donnée sensible dans le rapport (juste scores + IDs de suggestions Lynis)
+- `StrictHostKeyChecking=no` par défaut — acceptable sur réseau interne/VPN. Sur un réseau non fiable, éditez le script et remplacez par `StrictHostKeyChecking=accept-new`

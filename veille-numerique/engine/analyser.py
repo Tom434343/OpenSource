@@ -1,30 +1,48 @@
 """
-VeilleNumerique — Analyse Claude multi-couche
+VeilleNumerique — Analyse IA multi-couche
 Chaque couche a son propre prompt adapté à la granularité temporelle.
 """
 
-import anthropic
+import json
 import os
+import urllib.request
 
-MODEL = "claude-haiku-4-5-20251001"
 MAX_TOKENS = 2000
 
 
-def _call_claude(prompt, log_fn):
-    api_key = os.environ.get("ANTHROPIC_API_KEY", "")
+def _call_ia(prompt, log_fn):
+    api_key = os.environ.get("IA_API_KEY", "")
+    api_url = os.environ.get("IA_API_URL", "")
+    model = os.environ.get("IA_MODEL", "")
     if not api_key:
-        log_fn("ERREUR: ANTHROPIC_API_KEY non définie")
+        log_fn("ERREUR: IA_API_KEY non définie")
+        return None
+    if not api_url:
+        log_fn("ERREUR: IA_API_URL non définie")
+        return None
+    if not model:
+        log_fn("ERREUR: IA_MODEL non définie")
         return None
     try:
-        client = anthropic.Anthropic(api_key=api_key)
-        message = client.messages.create(
-            model=MODEL,
-            max_tokens=MAX_TOKENS,
-            messages=[{"role": "user", "content": prompt}]
+        body = json.dumps({
+            "model": model,
+            "messages": [{"role": "user", "content": prompt}],
+            "max_tokens": MAX_TOKENS,
+        }).encode("utf-8")
+        req = urllib.request.Request(
+            api_url,
+            data=body,
+            headers={
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {api_key}",
+            },
+            method="POST",
         )
-        return message.content[0].text
+        with urllib.request.urlopen(req, timeout=120) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+        return data["choices"][0]["message"]["content"]
     except Exception as e:
-        log_fn(f"ERREUR Claude API: {e}")
+        log_fn(f"ERREUR API IA: {e}")
         return None
 
 
@@ -67,7 +85,7 @@ Produis une synthèse quotidienne structurée en français :
 Sois direct, factuel. Maximum 400 mots."""
 
     log_fn(f"  Analyse JOUR — {len(articles)} articles...")
-    return _call_claude(content, log_fn)
+    return _call_ia(content, log_fn)
 
 
 # ─── COUCHE SEMAINE ──────────────────────────────────────────────────────────
@@ -100,7 +118,7 @@ Produis une synthèse hebdomadaire en français :
 Maximum 600 mots."""
 
     log_fn(f"  Analyse SEMAINE — {len(syntheses_jour)} jours...")
-    return _call_claude(content, log_fn)
+    return _call_ia(content, log_fn)
 
 
 # ─── COUCHE MOIS ─────────────────────────────────────────────────────────────
@@ -134,7 +152,7 @@ Produis une synthèse mensuelle en français :
 Maximum 800 mots."""
 
     log_fn(f"  Analyse MOIS — {len(syntheses_semaine)} semaines...")
-    return _call_claude(content, log_fn)
+    return _call_ia(content, log_fn)
 
 
 # ─── COUCHE TRIMESTRE ────────────────────────────────────────────────────────
@@ -168,7 +186,7 @@ Produis une analyse trimestrielle en français :
 Maximum 1000 mots."""
 
     log_fn(f"  Analyse TRIMESTRE — {len(syntheses_mois)} mois...")
-    return _call_claude(content, log_fn)
+    return _call_ia(content, log_fn)
 
 
 # ─── COUCHE ANNÉE ────────────────────────────────────────────────────────────
@@ -203,7 +221,7 @@ Produis un bilan annuel en français :
 Maximum 1500 mots."""
 
     log_fn(f"  Analyse ANNÉE — {len(syntheses_trimestre)} trimestres...")
-    return _call_claude(content, log_fn)
+    return _call_ia(content, log_fn)
 
 
 # ─── COUCHE CUMUL (mémoire progressive) ──────────────────────────────────────
@@ -241,4 +259,4 @@ IMPORTANT : ce document sera relu la semaine prochaine comme base. Il doit être
 Maximum 1200 mots."""
 
     log_fn(f"  Analyse CUMUL...")
-    return _call_claude(content, log_fn)
+    return _call_ia(content, log_fn)

@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============================================================
-# lancer-session.sh — Session Claude Code par projet
+# lancer-session.sh — Session de votre agent de codage par projet
 # Terminal Capture v3
 #
 # Usage : ./lancer-session.sh [NOM_PROJET]
@@ -43,7 +43,7 @@ if [ -z "$PROJET_NOM" ]; then
 
     PROJET_NOM=$(zenity --list \
         --title="Terminal Capture — Choix du projet" \
-        --text="Selectionnez un projet pour demarrer Claude Code :" \
+        --text="Selectionnez un projet pour demarrer votre agent de codage :" \
         --column="Projet" \
         $ZENITY_LIST \
         --width=400 --height=500 2>/dev/null) || true
@@ -91,12 +91,12 @@ echo "  Dossier : $PROJET_DIR"
 echo "  Session : $SESSION_TS"
 echo "=================================================="
 echo ""
-echo "Demarrage de Claude Code..."
+echo "Demarrage de votre agent de codage..."
 echo "Tapez '/exit' ou Ctrl+D pour terminer la session."
 echo ""
 
-# --- Lancer Claude Code ---
-(cd "$PROJET_DIR" && claude) || true
+# --- Lancer votre agent de codage ---
+(cd "$PROJET_DIR" && agentia) || true
 
 sleep 2
 

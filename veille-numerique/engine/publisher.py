@@ -120,7 +120,7 @@ def _json_to_markdown(data, config_name=""):
             lines.append("")
 
     lines.append("---")
-    lines.append(f"*VeilleNumerique · {config_name} · Généré automatiquement par Claude AI*")
+    lines.append(f"*VeilleNumerique · {config_name} · Généré automatiquement par IA*")
 
     return "\n".join(lines)
 
@@ -271,7 +271,7 @@ def publish_syntheses(log_fn):
     main_readme.append("## Statistiques globales\n")
     main_readme.append(f"- **Conteneurs actifs** : {len(conteneurs_data)}")
     main_readme.append(f"- **Total synthèses** : {total_all}")
-    main_readme.append(f"- **Modèle IA** : Claude Haiku 4.5")
+    main_readme.append(f"- **Modèle IA** : Haiku 4.5")
     main_readme.append(f"- **Mise à jour** : automatique (cron quotidien)\n")
 
     main_readme.append("## Pyramide de synthèses\n")
@@ -294,7 +294,7 @@ def publish_syntheses(log_fn):
     main_readme.append("        + CUMUL PROGRESSIF (mémoire longue)")
     main_readme.append("```\n")
     main_readme.append("---\n")
-    main_readme.append("*VeilleNumerique · VeilleNumerique · Généré automatiquement par Claude AI*")
+    main_readme.append("*VeilleNumerique · VeilleNumerique · Généré automatiquement par IA*")
 
     with open(PUBLISH_DIR / "README.md", "w", encoding="utf-8") as f:
         f.write("\n".join(main_readme))

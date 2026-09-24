@@ -3,7 +3,7 @@
 exporter_conversation.py
 Terminal Capture v3
 
-Lit la conversation Claude Code (stockee en JSONL dans ~/.claude/projects/)
+Lit la conversation de votre agent de codage (stockee en JSONL dans ~/.agentia/projects/)
 et genere :
   1. conversation_YYYYMMDD_HHMMSS.md  -> transcription complete
   2. JOURNAL.md                        -> entree pre-remplie par analyse automatique (dev/ops)
@@ -18,7 +18,7 @@ from datetime import datetime
 from pathlib import Path
 
 
-# -- Encodage du chemin (identique a Claude Code) --------------------------
+# -- Encodage du chemin (identique a votre agent de codage) --------------------------
 
 def encode_project_path(directory: str) -> str:
     return directory.replace("/", "-").replace(" ", "-")
@@ -28,7 +28,7 @@ def encode_project_path(directory: str) -> str:
 
 def trouver_conversation(projet_dir: str, start_epoch: int):
     encoded = encode_project_path(projet_dir)
-    projects_dir = Path.home() / ".claude" / "projects" / encoded
+    projects_dir = Path.home() / ".agentia" / "projects" / encoded
 
     if not projects_dir.exists():
         return None
@@ -84,7 +84,7 @@ def extraire_texte(content) -> str:
 
 def convertir_en_markdown(messages, projet_nom: str, session_date: str) -> str:
     lignes = [
-        f"# Conversation Claude Code — {projet_nom}",
+        f"# Conversation de votre agent de codage — {projet_nom}",
         "",
         f"**Date** : {session_date}",
         "",
@@ -103,7 +103,7 @@ def convertir_en_markdown(messages, projet_nom: str, session_date: str) -> str:
         elif type_msg == "assistant":
             texte = extraire_texte(msg.get("message", {}).get("content", []))
             if texte:
-                lignes += ["## Claude", "", texte, ""]
+                lignes += ["## AgentIA", "", texte, ""]
                 nb_echanges += 1
 
     if nb_echanges == 0:
@@ -116,7 +116,7 @@ def convertir_en_markdown(messages, projet_nom: str, session_date: str) -> str:
 
 def analyser_conversation(markdown: str) -> dict:
     """
-    Extrait les points cles depuis les sections Claude de la conversation.
+    Extrait les points cles depuis les sections IA de la conversation.
     Adapte dev/ops : corrections, TODO, decisions techniques, fichiers modifies.
     """
 
@@ -145,19 +145,19 @@ def analyser_conversation(markdown: str) -> dict:
     def to_bullets(lst, max_items: int = 8):
         return dedup(lst)[:max_items]
 
-    # Extraire uniquement le texte des blocs Claude
-    claude_blocks = re.findall(
-        r'## Claude\n\n(.*?)(?=\n## (?:Vous|Claude)|$)',
+    # Extraire uniquement le texte des blocs IA
+    ia_blocks = re.findall(
+        r'## AgentIA\n\n(.*?)(?=\n## (?:Vous|AgentIA)|$)',
         markdown, re.DOTALL
     )
-    claude_text = "\n".join(claude_blocks)
+    ia_text = "\n".join(ia_blocks)
 
     corrections = []
     todos = []
     decisions = []
     fichiers = []
 
-    for line in claude_text.split("\n"):
+    for line in ia_text.split("\n"):
         stripped = line.strip()
 
         if not stripped:
@@ -265,7 +265,7 @@ def mettre_a_jour_journal(journal_path, entree: str, projet_nom: str):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Export conversation Claude Code -> Markdown + JOURNAL.md"
+        description="Export conversation de votre agent de codage -> Markdown + JOURNAL.md"
     )
     parser.add_argument("--projet", required=True, help="Nom du projet")
     parser.add_argument("--projet-dir", required=True, help="Chemin du projet")

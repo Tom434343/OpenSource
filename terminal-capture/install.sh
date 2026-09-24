@@ -14,8 +14,8 @@ if ! command -v zenity &>/dev/null; then
     exit 1
 fi
 
-if ! command -v claude &>/dev/null; then
-    echo "Claude Code requis : https://claude.ai/code"
+if ! command -v agentia &>/dev/null; then
+    echo "votre agent de codage requis"
     read -p "Appuyez sur Entree pour fermer..." dummy
     exit 1
 fi
@@ -45,7 +45,7 @@ cat > "$DESKTOP_FILE" << EOF
 [Desktop Entry]
 Type=Application
 Name=Terminal Capture
-Comment=Session Claude Code par projet avec export Markdown
+Comment=Session de votre agent de codage par projet avec export Markdown
 Exec=gnome-terminal -- bash $WRAPPER
 Icon=utilities-terminal
 Hidden=false

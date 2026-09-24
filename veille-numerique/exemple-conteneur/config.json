@@ -1,5 +1,5 @@
 {
-  "name": "Cybersecurite",
+  "name": "Cybersécurité",
   "id": "cybersecurite",
   "enabled": true,
   "days_back": 1,
@@ -25,6 +25,6 @@
     "backdoor", "rce", "remote code execution",
     "patch tuesday", "exploit", "botnet"
   ],
-  "analyse_prompt": "Tu es un expert en cybersecurite. Analyse les articles fournis de maniere factuelle et technique. Concentre-toi sur : les vulnerabilites critiques, les campagnes d'attaque en cours, les patches urgents, et les tendances de menaces. Cite les CVE et les acteurs de menace par nom.",
+  "analyse_prompt": "Tu es un expert en cybersécurité. Analyse les articles fournis de manière factuelle et technique. Concentre-toi sur : les vulnérabilités critiques, les campagnes d'attaque en cours, les patches urgents, et les tendances de menaces. Cite les CVE et les acteurs de menace par nom.",
   "email_subject_prefix": "🛡️ Veille Cyber"
 }
