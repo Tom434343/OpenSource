@@ -24,7 +24,7 @@ Dimanche     → Consolide les 7 jours    → Synthèse semaine + cumul
 - Linux (Debian/Ubuntu)
 - Python 3.10+
 - Une clé API IA (console de votre fournisseur IA)
-- Un serveur SMTP pour les emails (Gmail, ProtonMail Bridge, Mailgun...)
+- Un serveur SMTP pour les emails (ProtonMail Bridge, Mailgun...)
 
 ## Installation
 
