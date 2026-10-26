@@ -11,7 +11,7 @@ Lance [Lynis](https://cisofy.com/lynis/) sur tous vos serveurs simultanément (1
 ```
 servers.conf        lynis-fleet.sh        Rapport
 ┌──────────┐       ┌──────────────┐       ┌──────────────────┐
-│ LOCAL     │──────→│              │──────→│ Scores /100      │
+│ LOCAL    │──────→│              │──────→│ Scores /100      │
 │ WEB1     │──SSH──│  Lynis audit │──────→│ Suggestions      │
 │ WEB2     │──SSH──│  en parallèle│──────→│ Quick Wins       │
 │ DB1      │──SSH──│              │──────→│ Rapport JSON     │
