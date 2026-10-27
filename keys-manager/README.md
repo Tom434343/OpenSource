@@ -92,5 +92,5 @@ X-GNOME-Autostart-enabled=true
 - **Algorithme** : AES-256-CBC avec dérivation PBKDF2
 - **Mot de passe** : interactif uniquement (jamais stocké)
 - **Fichiers temporaires** : /dev/shm (RAM), supprimés immédiatement après usage — jamais écrits sur disque
-- **Modèle de menace** : protège contre le vol physique de la machine. Ne protège PAS si l'attaquant connaît le mot de passe.
-- **Sauvegarde** : gardez une copie des .enc sur un support externe (USB chiffré)
+- **Modèle de menace** : protège en cas le vol physique de la machine.
+- **Sauvegarde** : gardez une copie des .enc sur un support externe (USB chiffré) et/ou dans un wallet cloud chiffré type ProtonPass.
