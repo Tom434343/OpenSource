@@ -2,7 +2,7 @@
 
 5 outils Linux autonomes, prêts à déployer avec votre agent de codage.
 
-Chaque outil fonctionne indépendamment. Choisissez celui qui vous intéresse, lisez son README, et lancez votre agent de codage dedans pour le configurer à votre sauce.
+Chaque outil fonctionne indépendamment. Choisissez celui qui vous intéresse, lisez son README, et lancez votre agent de codage dedans pour le configurer.
 
 ## Outils
 
